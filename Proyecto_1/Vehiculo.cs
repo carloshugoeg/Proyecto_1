@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Proyecto_1
 {
-    internal class Vehicle
+    internal class Vehiculo
     {
-        public Vehicle(string placa, string marca, string modelo, string color, DateTime ingreso, decimal precioHora)
+        public Vehiculo(string placa, string marca, string modelo, string color, DateTime ingreso, decimal precioHora)
         {
             Placa = placa;
             Marca = marca;
@@ -22,8 +22,8 @@ namespace Proyecto_1
         protected string  Marca { get; set; }
         protected string Modelo { get; set; }
         protected string Color { get; set; }
-        protected DateTime Ingreso { get; set; }
-        protected DateTime Salida { get; set; }
+        public DateTime Ingreso { get; set; }
+        public DateTime Salida { get; set; }
         protected decimal PrecioHora { get; set; }
 
         public virtual void MostrarInformacion()
@@ -36,5 +36,19 @@ namespace Proyecto_1
             Console.WriteLine("\nHora Ingreso:" + Ingreso);
             Console.WriteLine("\nPrecio Hora: Q." + PrecioHora);
         }
+        public int CalcularMinutos()
+        {
+            int horas;
+            Salida = DateTime.Now;
+            horas = Salida.Subtract(Salida).Minutes;
+            return horas;
+        }
+
+        public decimal GetPrecio()
+        {
+
+        return PrecioHora; }}
+
+
     }
 }
