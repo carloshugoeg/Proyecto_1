@@ -46,9 +46,11 @@ namespace Proyecto_1
 
         public decimal GetPrecio()
         {
-
-        return PrecioHora; }}
-
-
+            return PrecioHora; 
+        }
+        public string GetPlaca()
+        {
+            return Placa.ToLower().Trim(); 
+        }
     }
 }

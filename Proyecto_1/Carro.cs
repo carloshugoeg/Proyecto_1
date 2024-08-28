@@ -15,6 +15,7 @@ namespace Proyecto_1
         {
             base.MostrarInformacion();
             Console.WriteLine("Tipo Vehiculo: Carro");
+
         }
     }
 }

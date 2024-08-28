@@ -23,7 +23,7 @@ namespace Proyecto_1
         }
         public bool ValidarTarjeta()
         {
-            if(NumeroTarjeta.Length < )
+            return false;
         }
 
 

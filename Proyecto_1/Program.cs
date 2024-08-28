@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Proyecto_1;
+
+Estacionamiento estacionamiento = new Estacionamiento();
+estacionamiento.IngresarVehiculo();

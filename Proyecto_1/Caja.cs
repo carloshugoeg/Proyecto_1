@@ -20,7 +20,7 @@ namespace Proyecto_1
             {
                 fraccionesCobradas += 1;
             }
-            decimal total = fraccionesCobradas * Vehiculo.GetPrecio() /2;
+            decimal total = fraccionesCobradas * (Vehiculo.GetPrecio() /2);
             return total;
         }
         public decimal AplicarRecargo(decimal total)
@@ -32,5 +32,6 @@ namespace Proyecto_1
         {
             
         }
+        public void SetVehiculo(Vehiculo Vehiculo) => this.Vehiculo = Vehiculo;
     }
 }
