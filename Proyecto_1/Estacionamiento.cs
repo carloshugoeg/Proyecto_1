@@ -15,6 +15,54 @@ namespace Proyecto_1
         private int EspaciosMoto = 5;
         private int EspaciosBus = 1;
 
+
+        public void VerEspacios()
+        {
+            Console.WriteLine("Espacios Vehiculo Convencional: " + EspaciosCarro);
+
+            Console.WriteLine("Espacios para Motocicletas: " + EspaciosMoto);
+
+            Console.WriteLine("Espacios para Bus: " + EspaciosBus);
+        }
+
+        public void IngresarEspacios()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("----BUENOS DIAS----");
+            Console.WriteLine("Antes de aperturar porfavor ingrese cuantos espacios de cada vehiculo habran hoy");
+            Console.WriteLine("Si los espacios seran aparados durante todo el dia ingrese '0'");
+            Console.ResetColor();
+            int espaciosCarro, espaciosMoto, espaciosBus;
+            do
+            {
+                Console.Write("Espacios Carro: ");
+                espaciosCarro = PedirInt();
+                Console.Write("Espacios Moto: ");
+                espaciosMoto = PedirInt();
+                Console.Write("Espacios Bus: ");
+                espaciosBus = PedirInt();
+                if(espaciosCarro >= 0 && espaciosBus >= 0 && espaciosMoto >= 0)
+                {
+                    EspaciosCarro = espaciosCarro;
+                    EspaciosMoto = espaciosMoto;
+                    EspaciosBus = espaciosBus;
+                    break;
+                }
+                Console.WriteLine("No pueden haber espacios negativos");
+            }while(true);
+        }
+        public void VerVehiculos()
+        {
+            if (vehiculosEstacionados.Count > 0)
+            {
+                foreach (Vehiculo vehiculo in vehiculosEstacionados)
+                {
+                    vehiculo.MostrarInformacion();
+                }
+                Console.WriteLine("Presione ENTER para continuar"); Console.ReadLine();
+            }
+            else { NoVehiculos(); }
+        }
         public void IngresarVehiculo ()
         {
             string tipoVehiculo;
@@ -22,9 +70,9 @@ namespace Proyecto_1
             {
                 Console.Clear();
                 Console.WriteLine("------INGRESO DE VEHICULO------");
-                Console.WriteLine("\n      1. Ingresar Carro");
-                Console.WriteLine("      2. Ingresar Motocicleta");
-                Console.WriteLine("      3. Ingresar Bus");
+                Console.WriteLine("\n      1. Ingresar Carro..........Q.20/h");
+                Console.WriteLine("      2. Ingresar Motocicleta....Q.10/h");
+                Console.WriteLine("      3. Ingresar Bus............Q.30/h");
                 Console.WriteLine("      4. Regresar");
                 Console.Write("\nPorfavor seleccione una opcion: ");
                 tipoVehiculo = Console.ReadLine();
@@ -103,8 +151,20 @@ namespace Proyecto_1
                 {
                     Caja.CobroEfectivo(total);
                     Confirmacion();
+                    break;
+                }
+                else if(option == "2")
+                {
+                    if (Caja.CobroTarjeta(total))
+                    {
+                        break;
+                    }
                 }
             }while(true);
+            if (VehiculoRetirar is Carro) EspaciosCarro += 1;
+            else if (VehiculoRetirar is Motocicleta) EspaciosMoto += 1;
+            else if (VehiculoRetirar is Bus) EspaciosBus += 1;
+            vehiculosEstacionados.Remove(VehiculoRetirar);
 
         }
         public void NoDisponibilidad()
@@ -132,7 +192,6 @@ namespace Proyecto_1
                 }
             }while (true);
         }
-
         public void Confirmacion()
         {
             Console.Clear();
@@ -166,7 +225,7 @@ namespace Proyecto_1
             bool isTimeIsUp = false;
             Stopwatch stopwatch = Stopwatch.StartNew();
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("No hay vehiculos estacionados, porfavor ingrese vehiculo antes de retirar");
+            Console.WriteLine("No hay vehiculos estacionados, porfavor ingrese vehiculo antes");
             Console.Write("Sera regresado al menu en  ");
             int i = 4;
             int left = Console.GetCursorPosition().Left;
@@ -215,6 +274,41 @@ namespace Proyecto_1
                 }
             }
             return indice;
+        }
+        public int PedirInt()
+        {
+            do
+            {
+                try
+                {
+                    int monto;
+                    monto = int.Parse(Console.ReadLine());
+                    return monto;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("INPUT INVALIDO");
+                    Console.WriteLine(ex.Message);
+                    Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("-----APERTURA ESTACIONAMIENTO-----\n");
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Console.WriteLine("EL numero es demasiado grande");
+                    Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("-----APERTURA ESTACIONAMIENTO-----\n");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR");
+                    Console.WriteLine(ex.Message);
+                    Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("-----APERTURA ESTACIONAMIENTO-----\n");
+                }
+            } while (true);
         }
     }
 }

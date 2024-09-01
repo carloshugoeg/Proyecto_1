@@ -38,10 +38,10 @@ namespace Proyecto_1
         }
         public int CalcularSegundos()
         {
-            int segundos;
+            double totalSec;
             Salida = DateTime.Now;
-            TimeSpan timeSpan = Salida - Ingreso;
-            segundos = timeSpan.Seconds;
+            totalSec = (Salida - Ingreso).TotalSeconds;
+            int segundos = Convert.ToInt16(Math.Round(totalSec));
             return segundos;
         }
 
