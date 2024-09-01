@@ -18,13 +18,11 @@ namespace Proyecto_1
             PrecioHora = precioHora;
         }
 
-        protected string Placa { get; set; }
         protected string  Marca { get; set; }
         protected string Modelo { get; set; }
         protected string Color { get; set; }
         public DateTime Ingreso { get; set; }
         public DateTime Salida { get; set; }
-        protected decimal PrecioHora { get; set; }
 
         public virtual void MostrarInformacion()
         {
@@ -45,10 +43,12 @@ namespace Proyecto_1
             return segundos;
         }
 
+        protected decimal PrecioHora { get; set; }
         public decimal GetPrecio()
         {
             return PrecioHora; 
         }
+        protected string Placa { get; set; }
         public string GetPlaca()
         {
             return Placa.ToLower().Trim(); 

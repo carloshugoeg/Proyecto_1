@@ -8,7 +8,9 @@ namespace Proyecto_1
 {
     internal class Bus : Vehiculo
     {
-        public Bus(string placa, string marca, string modelo, string color, DateTime ingreso, decimal precioHora) : base(placa, marca, modelo, color, ingreso, precioHora)
+        public Bus(string placa, string marca, 
+            string modelo, string color, DateTime ingreso, decimal precioHora) 
+            : base(placa, marca, modelo, color, ingreso, precioHora)
         {
         }
         public override void MostrarInformacion()

@@ -15,7 +15,7 @@ namespace Proyecto_1
         private int EspaciosMoto = 5;
         private int EspaciosBus = 1;
 
-
+        //esta funcion se ejecuta durante el menu principal en el Main para mostrar los espacios disponibles
         public void VerEspacios()
         {
             Console.WriteLine("Espacios Vehiculo Convencional: " + EspaciosCarro);
@@ -24,7 +24,20 @@ namespace Proyecto_1
 
             Console.WriteLine("Espacios para Bus: " + EspaciosBus);
         }
-
+        //solamente se usa para visualizar
+        public void VerVehiculos()
+        {
+            if (vehiculosEstacionados.Count > 0)
+            {
+                foreach (Vehiculo vehiculo in vehiculosEstacionados)
+                {
+                    Console.WriteLine("-----------------");
+                    vehiculo.MostrarInformacion();
+                }
+                Console.WriteLine("Presione ENTER para continuar"); Console.ReadLine();
+            }
+            else { NoVehiculos(); }
+        }
         public void IngresarEspacios()
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -35,12 +48,14 @@ namespace Proyecto_1
             int espaciosCarro, espaciosMoto, espaciosBus;
             do
             {
-                Console.Write("Espacios Carro: ");
+                //se piden los  espacios con los que se aperturará el dia
+                Console.Write("\nEspacios Carro: ");
                 espaciosCarro = PedirInt();
                 Console.Write("Espacios Moto: ");
                 espaciosMoto = PedirInt();
                 Console.Write("Espacios Bus: ");
                 espaciosBus = PedirInt();
+                //valida que no hayan espacios repetidos
                 if(espaciosCarro >= 0 && espaciosBus >= 0 && espaciosMoto >= 0)
                 {
                     EspaciosCarro = espaciosCarro;
@@ -50,18 +65,6 @@ namespace Proyecto_1
                 }
                 Console.WriteLine("No pueden haber espacios negativos");
             }while(true);
-        }
-        public void VerVehiculos()
-        {
-            if (vehiculosEstacionados.Count > 0)
-            {
-                foreach (Vehiculo vehiculo in vehiculosEstacionados)
-                {
-                    vehiculo.MostrarInformacion();
-                }
-                Console.WriteLine("Presione ENTER para continuar"); Console.ReadLine();
-            }
-            else { NoVehiculos(); }
         }
         public void IngresarVehiculo ()
         {
@@ -78,6 +81,7 @@ namespace Proyecto_1
                 tipoVehiculo = Console.ReadLine();
                 string Placa, Marca, Modelo, Color;
                 int indiceEncontrado;
+                //se valida la entrada para no dejar proceder si no hay disponibilidad
                 if(tipoVehiculo != "1" &&  tipoVehiculo != "2" && tipoVehiculo != "3" || !Disponiblidad(tipoVehiculo))
                 {
                     return;
@@ -121,12 +125,14 @@ namespace Proyecto_1
             int indice = -1;
             Vehiculo VehiculoRetirar;
             Console.WriteLine("------RETIRAR VEHICULO------");
+            //verifica que hayan vehiculos
             if (vehiculosEstacionados.Count == 0)
             {
                 NoVehiculos();
                 return;
             }
             Console.WriteLine("\nPorfavor ingrese numero de placa");
+            //verifica que exista el vehiculo
             do
             {
                 Console.Clear();
@@ -138,6 +144,7 @@ namespace Proyecto_1
             VehiculoRetirar = vehiculosEstacionados[indice];
             Caja.SetVehiculo(VehiculoRetirar);
             (decimal total, int fraccionesCobradas) = Caja.CalcularTotal();
+            //calcular las horas
             Console.Write($"Se cobraran {fraccionesCobradas / 2} horas");
             if(fraccionesCobradas % 2 == 1) Console.Write(", se le aproximara a la siguiente fraccion");
             Console.WriteLine("\nSu total es de: Q." + total);
