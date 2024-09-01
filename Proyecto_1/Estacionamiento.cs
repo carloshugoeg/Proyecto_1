@@ -13,7 +13,7 @@ namespace Proyecto_1
         private Caja Caja = new Caja();
         private int EspaciosCarro = 3;
         private int EspaciosMoto = 5;
-        private int EspaciosBus = 0;
+        private int EspaciosBus = 1;
 
         public void IngresarVehiculo ()
         {
@@ -50,18 +50,62 @@ namespace Proyecto_1
                 {
                     vehiculosEstacionados.Add(new Carro(Placa,Marca,Modelo,Color, DateTime.Now, 20));
                     EspaciosCarro--;
+                    Confirmacion();
                 }
                 else if (tipoVehiculo == "2")
                 {
                     vehiculosEstacionados.Add(new Motocicleta(Placa, Marca, Modelo, Color, DateTime.Now, 10));
                     EspaciosMoto--;
+                    Confirmacion();
                 }
                 else if (tipoVehiculo == "3")
                 {
                     vehiculosEstacionados.Add(new Bus(Placa, Marca, Modelo, Color, DateTime.Now, 40));
                     EspaciosBus--;
+                    Confirmacion();
                 }
             } while (true);
+        }
+
+        public void RetirarVehiculo()
+        {
+            string placa;
+            int indice = -1;
+            Vehiculo VehiculoRetirar;
+            Console.WriteLine("------RETIRAR VEHICULO------");
+            if (vehiculosEstacionados.Count == 0)
+            {
+                NoVehiculos();
+                return;
+            }
+            Console.WriteLine("\nPorfavor ingrese numero de placa");
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("------RETIRAR VEHICULO------\n");
+                Console.Write("\nPlaca: ");
+                placa = Console.ReadLine();
+                indice = BuscarVehiculo(placa);
+            } while (indice == -1);
+            VehiculoRetirar = vehiculosEstacionados[indice];
+            Caja.SetVehiculo(VehiculoRetirar);
+            (decimal total, int fraccionesCobradas) = Caja.CalcularTotal();
+            Console.Write($"Se cobraran {fraccionesCobradas / 2} horas");
+            if(fraccionesCobradas % 2 == 1) Console.Write(", se le aproximara a la siguiente fraccion");
+            Console.WriteLine("\nSu total es de: Q." + total);
+            do
+            {
+                Console.WriteLine("Seleccione metodo de pago");
+                Console.WriteLine("\n     1. Efectivo");
+                Console.WriteLine("     2. Tarjeta");
+                string option = Console.ReadLine();
+                if(option == "1")
+                {
+                    Caja.CobroEfectivo(total);
+                    Confirmacion();
+                }
+            }while(true);
+
         }
         public void NoDisponibilidad()
         {
@@ -87,6 +131,59 @@ namespace Proyecto_1
                     return;
                 }
             }while (true);
+        }
+
+        public void Confirmacion()
+        {
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Green;
+            var sec = 4;
+            bool isTimeIsUp = false;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            Console.WriteLine("Operacion realizada correctamente");
+            Console.WriteLine("GRACIAS POR PREFERIRNOS");
+            Console.Write("Sera regresado al menu en  ");
+            int i = 4;
+            int left = Console.GetCursorPosition().Left;
+            int top = Console.GetCursorPosition().Top;
+            do
+            {
+                if (stopwatch.Elapsed.TotalSeconds == 1 || stopwatch.Elapsed.TotalSeconds == 2 || stopwatch.Elapsed.TotalSeconds == 3 || stopwatch.Elapsed.TotalSeconds == 4)
+                {
+                    Console.SetCursorPosition(left, top);
+                    Console.Write(i - stopwatch.Elapsed.Seconds);
+                }
+                if (stopwatch.Elapsed.Seconds > sec)
+                {
+                    Console.ResetColor();
+                    return;
+                }
+            } while (true);
+        }
+        public void NoVehiculos()
+        {
+            var sec = 4;
+            bool isTimeIsUp = false;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("No hay vehiculos estacionados, porfavor ingrese vehiculo antes de retirar");
+            Console.Write("Sera regresado al menu en  ");
+            int i = 4;
+            int left = Console.GetCursorPosition().Left;
+            int top = Console.GetCursorPosition().Top;
+            do
+            {
+                if (stopwatch.Elapsed.TotalSeconds == 1 || stopwatch.Elapsed.TotalSeconds == 2 || stopwatch.Elapsed.TotalSeconds == 3 || stopwatch.Elapsed.TotalSeconds == 4)
+                {
+                    Console.SetCursorPosition(left, top);
+                    Console.Write(i - stopwatch.Elapsed.Seconds);
+                }
+                if (stopwatch.Elapsed.Seconds > sec)
+                {
+                    Console.ResetColor();
+                    return;
+                }
+            } while (true);
         }
         public bool Disponiblidad(string tipoVehiculo)
         {

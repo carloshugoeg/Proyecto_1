@@ -36,12 +36,13 @@ namespace Proyecto_1
             Console.WriteLine("\nHora Ingreso:" + Ingreso);
             Console.WriteLine("\nPrecio Hora: Q." + PrecioHora);
         }
-        public int CalcularMinutos()
+        public int CalcularSegundos()
         {
-            int horas;
+            int segundos;
             Salida = DateTime.Now;
-            horas = Salida.Subtract(Salida).Minutes;
-            return horas;
+            TimeSpan timeSpan = Salida - Ingreso;
+            segundos = timeSpan.Seconds;
+            return segundos;
         }
 
         public decimal GetPrecio()
