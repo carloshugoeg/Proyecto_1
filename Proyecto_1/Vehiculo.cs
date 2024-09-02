@@ -24,7 +24,7 @@ namespace Proyecto_1
         public DateTime Ingreso { get; set; }
         public DateTime Salida { get; set; }
 
-        public virtual void MostrarInformacion()
+        public virtual void MostrarInformacion() //base de la funcion mostrarInfo
         {
             Console.WriteLine("--------VEHICULOS ESTACIONADOS--------");
             Console.WriteLine("\nPlaca:" + Placa);
@@ -34,22 +34,23 @@ namespace Proyecto_1
             Console.WriteLine("\nHora Ingreso:" + Ingreso);
             Console.WriteLine("\nPrecio Hora: Q." + PrecioHora);
         }
-        public int CalcularSegundos()
+        public int CalcularSegundos() //se calculan los segundos entre la entrada y salida
         {
             double totalSec;
             Salida = DateTime.Now;
-            totalSec = (Salida - Ingreso).TotalSeconds;
+            totalSec = (Salida - Ingreso).TotalSeconds; //total seconds nos da el total de los segundos (los cuales tomaremos como horas)
             int segundos = Convert.ToInt16(Math.Round(totalSec));
             return segundos;
         }
 
-        protected decimal PrecioHora { get; set; }
-        public decimal GetPrecio()
+        //aqui se puede observar el encapsulamiento
+        protected decimal PrecioHora { get; set; } //atributo protected
+        public decimal GetPrecio() //visualizado con metodo publico
         {
             return PrecioHora; 
         }
-        protected string Placa { get; set; }
-        public string GetPlaca()
+        protected string Placa { get; set; } //atributo protected
+        public string GetPlaca() //metodo publico
         {
             return Placa.ToLower().Trim(); 
         }

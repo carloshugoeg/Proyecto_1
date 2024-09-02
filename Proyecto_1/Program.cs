@@ -1,7 +1,7 @@
 ﻿using Proyecto_1;
 
 Estacionamiento estacionamiento = new Estacionamiento();
-estacionamiento.IngresarEspacios();
+estacionamiento.IngresarEspacios(); //ingresar espacios con los que se aperturara
 do
 {
     Console.Clear();
@@ -17,6 +17,8 @@ do
     string option = Console.ReadLine();
     switch (option)
     {
+        //se llaman a los metodos dentro de la clase estacionamiento
+        //abstraccion
         case "1":
             estacionamiento.IngresarVehiculo(); break;
         case "2":

@@ -12,8 +12,9 @@ namespace Proyecto_1
             string modelo, string color, DateTime ingreso, decimal precioHora) 
             : base(placa, marca, modelo, color, ingreso, precioHora)
         {
+
         }
-        public override void MostrarInformacion()
+        public override void MostrarInformacion() //override de la funcion
         {
             base.MostrarInformacion();
             Console.WriteLine("Tipo Vehiculo: Bus");

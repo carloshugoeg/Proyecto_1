@@ -88,16 +88,19 @@ namespace Proyecto_1
                 }
                 do
                 {
+                    //se llama a la funcion buscador y no se sale del loop hasta que se cumplan las condicionales
                     Console.Write("Ingrese Numero de Placa: ");
                     Placa = Console.ReadLine();
                     indiceEncontrado = BuscarVehiculo(Placa);
                 } while (indiceEncontrado != -1);
+                //se agregan los datos del vehiculo
                 Console.Write("Ingrese marca: ");
                 Marca = Console.ReadLine();
                 Console.Write("Ingrese Modelo: ");
                 Modelo = Console.ReadLine();
                 Console.Write("Ingrese Color: ");
                 Color = Console.ReadLine();
+                //condicional que determina que tipo de vehiculo se agregara en base a la opcion anterior
                 if(tipoVehiculo == "1")
                 {
                     vehiculosEstacionados.Add(new Carro(Placa,Marca,Modelo,Color, DateTime.Now, 20));
@@ -150,12 +153,14 @@ namespace Proyecto_1
             Console.WriteLine("\nSu total es de: Q." + total);
             do
             {
+                //selecciona metodo de pago
                 Console.WriteLine("Seleccione metodo de pago");
                 Console.WriteLine("\n     1. Efectivo");
                 Console.WriteLine("     2. Tarjeta");
                 string option = Console.ReadLine();
                 if(option == "1")
                 {
+                    //abstraccion de los metodos
                     Caja.CobroEfectivo(total);
                     Confirmacion();
                     break;
@@ -168,12 +173,15 @@ namespace Proyecto_1
                     }
                 }
             }while(true);
+            //se suma un espacio
             if (VehiculoRetirar is Carro) EspaciosCarro += 1;
             else if (VehiculoRetirar is Motocicleta) EspaciosMoto += 1;
             else if (VehiculoRetirar is Bus) EspaciosBus += 1;
             vehiculosEstacionados.Remove(VehiculoRetirar);
 
         }
+
+        //mensaje solamente
         public void NoDisponibilidad()
         {
             var sec = 4;
@@ -199,6 +207,7 @@ namespace Proyecto_1
                 }
             }while (true);
         }
+        //mensaje solamente
         public void Confirmacion()
         {
             Console.Clear();
@@ -226,6 +235,7 @@ namespace Proyecto_1
                 }
             } while (true);
         }
+        //mensaje solamente
         public void NoVehiculos()
         {
             var sec = 4;
@@ -251,6 +261,7 @@ namespace Proyecto_1
                 }
             } while (true);
         }
+        //chequea disponibilidadd
         public bool Disponiblidad(string tipoVehiculo)
         {
             if (tipoVehiculo == "1" && EspaciosCarro <= 0)
@@ -270,6 +281,7 @@ namespace Proyecto_1
             }
             return true;
         }
+        //buscador de vehiculos
         public int BuscarVehiculo(string placa)
         {
             int indice = -1;
@@ -282,6 +294,7 @@ namespace Proyecto_1
             }
             return indice;
         }
+        //bloque para pedir un integer con trycatch incluidos
         public int PedirInt()
         {
             do

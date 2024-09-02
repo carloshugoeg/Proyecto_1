@@ -11,7 +11,7 @@ namespace Proyecto_1
         public Motocicleta(string placa, string marca, string modelo, string color, DateTime ingreso, decimal precioHora) : base(placa, marca, modelo, color, ingreso, precioHora)
         {
         }
-        public override void MostrarInformacion()
+        public override void MostrarInformacion() //override metodo base
         {
             base.MostrarInformacion();
             Console.WriteLine("Tipo Vehiculo: Motocicleta");

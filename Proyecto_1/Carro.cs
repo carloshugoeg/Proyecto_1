@@ -11,6 +11,7 @@ namespace Proyecto_1
         public Carro(string placa, string marca, string modelo, string color, DateTime ingreso, decimal precioHora) : base(placa, marca, modelo, color, ingreso, precioHora)
         {
         }
+        //override de la funcion
         public override void MostrarInformacion()
         {
             base.MostrarInformacion();

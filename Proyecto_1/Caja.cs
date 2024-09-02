@@ -13,27 +13,33 @@ namespace Proyecto_1
     {
         public Caja() { }
         protected Vehiculo Vehiculo { get; set; }
+        // Calcula el total a pagar en base al tiempo de estacionamiento
         public (decimal, int) CalcularTotal()
         {
             int segundos = Vehiculo.CalcularSegundos();
             int fraccionesCobradas = 1;
+            // Calcula la cantidad de fracciones de 30 minutos cobradas
             for (int i = 30; i <= segundos; i += 30)
             {
                 fraccionesCobradas += 1;
             }
+            // Calcula el total a pagar en base a las fracciones cobradas
             decimal total = fraccionesCobradas * (Vehiculo.GetPrecio() / 2);
             return (total, fraccionesCobradas);
         }
+        // Aplica un recargo del 10% al total a pagar
         public decimal AplicarRecargo(decimal total)
         {
             decimal Recargo = total * Convert.ToDecimal(0.10);
             return total + Recargo;
         }
+        // Calcula el vuelto a entregar al cliente
         public int[] DarVuelto(decimal dineroPagado, decimal total)
         {
             int[] Billetes = { 200, 100, 50, 20, 10, 5, 1 };
             int[] cantidadCadaBillete = new int[8];
             int dinero = Convert.ToInt32(dineroPagado - total);
+            // Calcula la cantidad de billetes de cada denominación a entregar
             cantidadCadaBillete[7] = Convert.ToInt32((dineroPagado - dinero) * 100);
             int i = 0;
             foreach (int billete in Billetes)
@@ -51,7 +57,9 @@ namespace Proyecto_1
             return cantidadCadaBillete;
 
         }
+        // Establece el vehículo asociado a la caja
         public void SetVehiculo(Vehiculo Vehiculo) => this.Vehiculo = Vehiculo;
+        // Proceso de cobro en efectivo
         public void CobroEfectivo(decimal total)
         {
             decimal dineroPagado;
@@ -82,15 +90,12 @@ namespace Proyecto_1
                 {
                     Console.WriteLine($"{billete} de Q. {Billetes[i]}.00");
                 }
-                //else if (i == 7 && billete != 0)
-                //{
-                //    Console.WriteLine($"Y se devolveran Q. 0.{billete} que dio de extra");
-                //}
                 i++;
             }
             Console.WriteLine("Presione ENTER para entregar vuelto");
             Console.ReadLine();
         }
+        // Pide el precio al usuario y lo valida
         public decimal PedirPrecio()
         {
             do
@@ -136,6 +141,7 @@ namespace Proyecto_1
                 }
             } while (true);
         }
+        // Proceso de ingreso de tarjeta
         public void IngresarTarjeta()
         {
 
@@ -195,9 +201,9 @@ namespace Proyecto_1
             {
                 Console.Write("\nIngrese CVV de 3 o 4 digitos: ");
                 CVV = PedirInt();
-                if(CVV > 99)
+                if (CVV > 99)
                 {
-                    if(CVV < 9999)
+                    if (CVV < 9999)
                     {
                         break;
                     }
@@ -214,6 +220,7 @@ namespace Proyecto_1
             return; ;
         }
 
+        // Proceso de cobro con tarjeta
         public bool CobroTarjeta(decimal total)
         {
             Console.Clear();
@@ -221,7 +228,7 @@ namespace Proyecto_1
             Console.WriteLine("El pago con tarjeta tiene recargo del 10%");
             Console.WriteLine("Desea Continuar? y/n");
             string option = Console.ReadLine().ToLower().Trim(); ;
-            if(option == "y")
+            if (option == "y")
             {
                 decimal newtotal = AplicarRecargo(total);
                 Console.WriteLine($"Se le cobraran Q{newtotal}");
@@ -234,7 +241,7 @@ namespace Proyecto_1
 
         }
 
-
+        // Pide un entero al usuario y lo valida
         public int PedirInt()
         {
             do

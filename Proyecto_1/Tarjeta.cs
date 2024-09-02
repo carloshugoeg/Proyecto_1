@@ -8,6 +8,7 @@ namespace Proyecto_1
 {
     internal class Tarjeta
     {
+        //tarjeta puede ser obviado, solamente se usa para verificar un formato correcto. Sin embargo 
         private string NumeroTarjeta { get; set; }
         private string NombreTitular { get; set; }
         private int MMVencimiento { get; set; }
@@ -21,11 +22,5 @@ namespace Proyecto_1
             YYVencimiento = yYVencimiento;
             CVV = cVV;
         }
-        public bool ValidarTarjeta()
-        {
-            return false;
-        }
-
-
     }
 }
